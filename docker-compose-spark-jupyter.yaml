@@ -7,7 +7,7 @@ services:
     # need reference to Master host
     user: root
     # Driver need extra var to advertize itself. 
-    env:
+    environment:
       - SPARK_DRIVER_MEMORY="5g"
     ports:
       - "51814:51814"
