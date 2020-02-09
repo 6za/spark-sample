@@ -4,7 +4,7 @@ services:
     image: jupyter/all-spark-notebook
     hostname: spark-master
     # master doesn't need to resolve other nodes.
-    env:
+    environment:
       - SPARK_MASTER_PORT=7077
       - SPARK_MASTER_WEBUI_PORT=8088
     entrypoint: /usr/local/spark/bin/spark-class
