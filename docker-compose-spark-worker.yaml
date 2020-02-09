@@ -7,7 +7,7 @@ services:
     # Work also have extra hosts defined by script
     # need reference to Master and Driver App
     user: root
-    env:
+    environment:
       - SPARK_WORKER_PORT=51815
       - SPARK_WORKER_WEBUI_PORT=4040
       - SPARK_WORKER_CORES=2
