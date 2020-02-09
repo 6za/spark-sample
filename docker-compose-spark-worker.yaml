@@ -11,7 +11,7 @@ services:
       - SPARK_WORKER_PORT=51815
       - SPARK_WORKER_WEBUI_PORT=4040
       - SPARK_WORKER_CORES=2
-      - SPARK_WORKER_MEMORY="10g"
+      - SPARK_WORKER_MEMORY=10g
       - SPARK_WORKER_OPTS="-Dspark.blockManager.port=51814"
     entrypoint: /usr/local/spark/bin/spark-class
     command: org.apache.spark.deploy.worker.Worker spark://spark-master:7077
