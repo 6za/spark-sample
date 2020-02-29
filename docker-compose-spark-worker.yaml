@@ -18,4 +18,14 @@ services:
     ports:
       - "51814:51814"
       - "51815:51815"
-      - "4040:4040"      
+      - "4040:4040"  
+    networks:
+        spark_internal_net:
+            ipv4_address: 172.28.1.1      
+
+networks:
+    spark_internal_net:
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.28.0.0/16
