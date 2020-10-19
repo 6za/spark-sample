@@ -14,3 +14,13 @@ services:
       - "51816:51816"
       - "4040:4040"
       - "8888:8888"      
+    networks:
+        spark_internal_net:
+            ipv4_address: 172.28.1.1      
+
+networks:
+    spark_internal_net:
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.28.0.0/16
