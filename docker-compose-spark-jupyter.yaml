@@ -10,8 +10,7 @@ services:
     environment:
       - SPARK_DRIVER_MEMORY=5g
     ports:
-      - "51814:51814"
-      - "51816:51816"
+      - "51800-51860:51800-51860"
       - "4040:4040"
       - "8888:8888"      
 #    networks:
