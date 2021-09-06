@@ -1,7 +1,7 @@
 
 version: "3.7"
 services:
-  jupyter-driver:
+  spark-driver:
     image: jupyter/all-spark-notebook:spark-3.1.2
     hostname: spark-driver    
     # Driveralso have extra hosts defined by script
