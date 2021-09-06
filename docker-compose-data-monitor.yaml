@@ -1,0 +1,14 @@
+
+version: "3.7"
+services:
+  spark-worker:
+    image: jupyter/all-spark-notebook
+    user: root
+    environment:
+      - SPARK_WORKER_PORT=51815
+      - SPARK_WORKER_WEBUI_PORT=4040
+      - SPARK_WORKER_CORES=2
+      - SPARK_WORKER_MEMORY=20g
+      - SPARK_DRIVER_MEMORY=50g
+      - SPARK_WORKER_OPTS="-Dspark.blockManager.port=51900"
+    entrypoint: /usr/local/spark/bin/spark-class
