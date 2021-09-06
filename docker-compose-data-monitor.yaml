@@ -3,7 +3,7 @@ version: "3.7"
 services:
   spark-monitor:
 #    image: jupyter/all-spark-notebook
-    build: ./data_collector
+    build: https://github.com/6za/spark-sample/blob/master/data_collector/Dockerfile
     user: root
     environment:
       - SPARK_WORKER_PORT=51815
