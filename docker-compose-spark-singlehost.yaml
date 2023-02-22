@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  spark-driver:
+    image: jupyter/all-spark-notebook
+    hostname: spark-driver    
+    # Driver also have extra hosts defined by script
+    # need reference to Master host
+    user: root
+    # Driver need extra var to advertize itself. 
+    environment:
+      - SPARK_DRIVER_MEMORY=5g
+    ports:
+      - "4041:4041"
+      - "4040:4040"
+      - "8888:8888"
