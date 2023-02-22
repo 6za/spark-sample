@@ -14,4 +14,4 @@ services:
       - "4040:4040"
       - "8888:8888"
     volumes:
-      - /home/data/spark_jupyter:/home/jovyan/persisted
+      - /home/kaxios/spark_jupyter:/home/jovyan/persisted:rw
