@@ -30,7 +30,7 @@ jobs:
           type=semver,pattern={{major}}
           type=sha
           type=raw,value=latest
-          type=raw,value=jvm11-scala2.13-spark3.3.0
+          type=raw,value=jvm11-scala2.13-spark3.4.1
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
     - name: Set up Docker Buildx
