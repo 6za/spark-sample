@@ -46,6 +46,6 @@ ln -sf /dev/stdout $SPARK_WORKER_LOG
 
 COPY start-spark.sh /
 #WARM cache of common libraries: 
-RUN /opt/spark/bin/spark-submit   --class "Main"   --packages "org.apache.spark:spark-sql-kafka-0-10_2.12:3.4.1","com.amazonaws:aws-java-sdk:1.11.534","org.apache.hadoop:hadoop-aws:3.2.2","com.squareup.okhttp3:okhttp:4.9.0"   --master local[*]    /opt/spark/examples/jars/spark-examples_2.13-3.3.0.jar || echo done
+#RUN /opt/spark/bin/spark-submit   --class "Main"   --packages "org.apache.spark:spark-sql-kafka-0-10_2.12:$SPARK_VERSION","com.amazonaws:aws-java-sdk:1.11.534","org.apache.hadoop:hadoop-aws:3.2.2","com.squareup.okhttp3:okhttp:4.9.0"   --master local[*]    /opt/spark/examples/jars/spark-examples_2.13-${SPARK_VERSION}.jar || echo done
 
 CMD ["/bin/bash", "/start-spark.sh"]
