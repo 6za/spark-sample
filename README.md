@@ -23,6 +23,18 @@ docker build ./docker/spark-cassandra --build-arg="BASE_IMAGE_TAG=jvm11-scala2.1
 docker build ./docker/spark-cassandra --build-arg="BASE_IMAGE_TAG=jvm11-scala2.13-spark3.4.1-cassandra" 
 ```
 
+References: 
+- https://datastax.github.io/spark-cassandra-connector/ApiDocs/3.4.1/connector/com/datastax/spark/connector/index.html
+
+- https://github.com/datastax/spark-cassandra-connector/#version-compatibility
+
+### Tests
+
+```bash 
+docker build -f scala/app/Dockerfile .  -t spark-cassandra-test
+docker compose -f docker-compose-test-cassandra.yaml up 
+```
+
 ## Postgres
 
 ```bash 
@@ -31,3 +43,4 @@ docker build ./docker/spark-postgres -t test-deps-postgres:latest
 ```
 
 Some other tags will be produced to help with warm cache for dependencies
+
