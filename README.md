@@ -42,5 +42,13 @@ docker compose -f docker-compose-test-cassandra.yaml up
 docker build ./docker/spark-postgres -t test-deps-postgres:latest
 ```
 
+### Tests
+
+```bash 
+docker build -f scala/app/Dockerfile .  -t spark-postgres-test --build-arg "BASE_IMAGE_TAG=jvm11-scala2.13-spark3.4.1-postgres" --build-arg "PROJECTFOLDER=postgres-app"
+docker compose -f docker-compose-test-postgres.yaml up 
+```
+
+
 Some other tags will be produced to help with warm cache for dependencies
 

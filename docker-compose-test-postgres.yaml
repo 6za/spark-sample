@@ -1,0 +1,46 @@
+version: '3.7'
+services:   
+  db-postgres:
+    image: postgres:15
+    hostname: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - '5432:5432'
+
+    healthcheck:
+      test: ["CMD", "psql","-p","5432","-U","postgres","-c","select 1 from information_schema.domains limit 1;"]
+      interval: 15s
+      timeout: 10s
+      retries: 10      
+  
+  setup-db:
+    image: postgres:15
+    environment:
+      - PGPASSWORD=postgres
+    command: psql -p 5432 -h db-postgres -U postgres -f /setup/setup.sql
+    volumes:
+      - ./postgres/scripts:/setup
+      - ./postgres/data:/load-data
+    links:
+      - "db-postgres:db-postgres"       
+    depends_on:
+        db-postgres:
+            condition: service_healthy      
+  
+  process-load:
+    image: spark-postgres-test
+    environment:            
+      - CLASSNAME=Main
+    links:
+      - "db-postgres:db-postgres"       
+    #volumes:
+    #  - ./cassandra/out:/out
+    depends_on:
+      setup-db:
+          condition: service_completed_successfully        
