@@ -49,6 +49,19 @@ docker build -f scala/app/Dockerfile .  -t spark-postgres-test --build-arg "BASE
 docker compose -f docker-compose-test-postgres.yaml up 
 ```
 
+## S3
+
+```bash 
+# Warm of cache of jars
+docker build ./docker/spark-s3 -t test-deps-s3:latest
+```
+
+### Tests
+
+```bash 
+docker build -f scala/app/Dockerfile .  -t spark-s3-test --build-arg "BASE_IMAGE_TAG=jvm11-scala2.13-spark3.4.1-s3" --build-arg "PROJECTFOLDER=s3-app"
+docker compose -f docker-compose-test-s3.yaml up 
+```
 
 Some other tags will be produced to help with warm cache for dependencies
 

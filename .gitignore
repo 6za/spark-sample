@@ -352,3 +352,4 @@ MigrationBackup/
 ./persistence/s3/out
 persistence/s3/out/
 persistence/s3/.minio.sys/
+persistence/s3/bucketin/
