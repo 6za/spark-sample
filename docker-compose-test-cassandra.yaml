@@ -16,8 +16,8 @@ services:
     hostname: cassandra
     command: cqlsh db-cassandra --connect-timeout=30 --request-timeout=6000 -f /setup/setup.cql
     volumes:
-      - ./cassandra/scripts:/setup
-      - ./cassandra/data:/load-data
+      - ./persistence/cassandra/scripts:/setup
+      - ./persistence/data:/load-data
     links:
       - "db-cassandra:db-cassandra"       
     depends_on:
@@ -31,7 +31,7 @@ services:
     links:
       - "db-cassandra:db-cassandra"             
     #volumes:
-    #  - ./cassandra/out:/out
+    #  - ./persistence/cassandra/out:/out
     depends_on:
       setup-cassandra:
           condition: service_completed_successfully        
