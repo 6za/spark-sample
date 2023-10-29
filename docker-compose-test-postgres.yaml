@@ -25,8 +25,8 @@ services:
       - PGPASSWORD=postgres
     command: psql -p 5432 -h db-postgres -U postgres -f /setup/setup.sql
     volumes:
-      - ./postgres/scripts:/setup
-      - ./postgres/data:/load-data
+      - ./persistence/postgres/scripts:/setup
+      - ./persistence/data:/load-data
     links:
       - "db-postgres:db-postgres"       
     depends_on:
@@ -40,7 +40,7 @@ services:
     links:
       - "db-postgres:db-postgres"       
     #volumes:
-    #  - ./cassandra/out:/out
+    #  - ./persistence/cassandra/out:/out
     depends_on:
       setup-db:
           condition: service_completed_successfully        
