@@ -24,7 +24,7 @@ jobs:
       with:
         # list of Docker images to use as base name for tags
         images: |
-          ${{ secrets.DOCKER_USER }}/${{ secrets.IMAGE_NAME }}
+          ${{ secrets.DOCKER_USER }}/${{ env.IMAGE_NAME }}
         # generate Docker tags based on the following events/attributes
         tags: |
           type=ref,event=branch
@@ -52,7 +52,7 @@ jobs:
         platforms: linux/amd64,linux/arm64/v8
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        cache-from: type=registry,ref=${{ secrets.DOCKER_USER }}/${{ secrets.IMAGE_NAME }}:latest
+        cache-from: type=registry,ref=${{ secrets.DOCKER_USER }}/${{ env.IMAGE_NAME }}:latest
         cache-to: type=inline
   
   build-spark-with-cassandra:
@@ -67,7 +67,7 @@ jobs:
       with:
         # list of Docker images to use as base name for tags
         images: |
-          ${{ secrets.DOCKER_USER }}/${{ secrets.IMAGE_NAME }}
+          ${{ secrets.DOCKER_USER }}/${{ env.IMAGE_NAME }}
         # generate Docker tags based on the following events/attributes
         tags: |
           type=raw,value=${{ env.IMAGE_PREFIX }}-cassandra
@@ -88,7 +88,7 @@ jobs:
         platforms: linux/amd64,linux/arm64/v8
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        cache-from: type=registry,ref=${{ secrets.DOCKER_USER }}/${{ secrets.IMAGE_NAME }}:${{ env.IMAGE_PREFIX }}-cassandra
+        cache-from: type=registry,ref=${{ secrets.DOCKER_USER }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_PREFIX }}-cassandra
         cache-to: type=inline        
   
   build-spark-with-postgres:
@@ -103,7 +103,7 @@ jobs:
       with:
         # list of Docker images to use as base name for tags
         images: |
-          ${{ secrets.DOCKER_USER }}/${{ secrets.IMAGE_NAME }}
+          ${{ secrets.DOCKER_USER }}/${{ env.IMAGE_NAME }}
         # generate Docker tags based on the following events/attributes
         tags: |
           type=raw,value=${{ env.IMAGE_PREFIX }}-postgres
@@ -124,9 +124,9 @@ jobs:
         platforms: linux/amd64,linux/arm64/v8
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        cache-from: type=registry,ref=${{ secrets.DOCKER_USER }}/${{ secrets.IMAGE_NAME }}:${{ env.IMAGE_PREFIX }}-postgres
+        cache-from: type=registry,ref=${{ secrets.DOCKER_USER }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_PREFIX }}-postgres
         cache-to: type=inline         
-        
+
   build-spark-with-s3:
     needs: build-spark
     runs-on: ubuntu-latest
@@ -139,7 +139,7 @@ jobs:
       with:
         # list of Docker images to use as base name for tags
         images: |
-          ${{ secrets.DOCKER_USER }}/${{ secrets.IMAGE_NAME }}
+          ${{ secrets.DOCKER_USER }}/${{ env.IMAGE_NAME }}
         # generate Docker tags based on the following events/attributes
         tags: |
           type=raw,value=${{ env.IMAGE_PREFIX }}-s3
@@ -160,5 +160,5 @@ jobs:
         platforms: linux/amd64,linux/arm64/v8
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        cache-from: type=registry,ref=${{ secrets.DOCKER_USER }}/${{ secrets.IMAGE_NAME }}:${{ env.IMAGE_PREFIX }}-s3
+        cache-from: type=registry,ref=${{ secrets.DOCKER_USER }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_PREFIX }}-s3
         cache-to: type=inline          
