@@ -1,7 +1,7 @@
 name: ci
 
 env:
-  IMAGE_PREFIX: jvm11-scala2.13-spark3.4.1-v0
+  IMAGE_PREFIX: jvm11-scala2.13-spark3.4.1
   IMAGE_NAME: base-spark-scala
 
 on:
