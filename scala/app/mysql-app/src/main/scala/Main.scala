@@ -4,7 +4,7 @@ import org.apache.spark.sql.DataFrame
 object Main {
   def main(args: Array[String]): Unit = {
 
-    val redisHost = sys.env.getOrElse("CASSANDRA_HOST", "redis-host")
+    val mysqlHost = sys.env.getOrElse("MYSQL_HOST", "db-mysql")
     val s3InFolder = sys.env.getOrElse("IN_FOLDER", "in")
     val s3OutFolder = sys.env.getOrElse("OUT_FOLDER", "out")
 
@@ -15,11 +15,29 @@ object Main {
       .appName("MySQLApp")
       .getOrCreate()
 
-      //.config("spark.redis.host", redisHost)
-      //.config("spark.redis.port", "6379")
-
     val sourceDF = spark.read.format("csv").option("header", "true").load(inputFile)
-    println(s"Total records extracted($inputFile): ${sourceDF.count}")
+
+    sourceDF.write
+      .format("jdbc")
+      .mode("overwrite")
+      .option("truncate", "true")
+      .option("driver", "com.mysql.cj.jdbc.Driver")
+      .option("url", s"jdbc:mysql://$mysqlHost:3306/database")
+      .option("dbtable", "products")
+      .option("user", "user")
+      .option("password", "password")
+      .save()
+
+    val postDumpDF = spark.read
+      .format("jdbc")
+      .option("driver", "com.mysql.cj.jdbc.Driver")
+      .option("url", s"jdbc:mysql://$mysqlHost:3306/database")
+      .option("dbtable", "products")
+      .option("user", "user")
+      .option("password", "password")
+      .load()
+
+    println(s"Total records extracted($inputFile): ${postDumpDF.count}")
     println("Hello world!")
   }
 }
