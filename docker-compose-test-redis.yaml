@@ -16,9 +16,11 @@ services:
 
 
   process-load:
-    image: spark-reedis-test
+    image: spark-redis-test
     environment:            
       - CLASSNAME=Main
+    volumes:
+      - ./persistence/data:/in
     links:
       - "redis-host:redis-host"       
     depends_on:

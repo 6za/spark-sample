@@ -4,6 +4,6 @@ time /opt/spark/bin/spark-submit \
   --driver-memory 8g \
   --executor-memory 3g \
   --num-executors 3 \
-  --packages "com.amazonaws:aws-java-sdk:1.11.534","org.apache.hadoop:hadoop-aws:3.2.2" \
+  --packages "com.redislabs:spark-redis_2.12:3.0.0" \
   --master local[*] \
   /app/app.jar  
