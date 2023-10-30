@@ -33,6 +33,7 @@ References:
 ```bash 
 docker build -f scala/app/Dockerfile .  -t spark-cassandra-test
 docker compose -f docker-compose-test-cassandra.yaml up 
+docker compose -f docker-compose-test-cassandra.yaml down
 ```
 
 ## Postgres
@@ -47,6 +48,7 @@ docker build ./docker/spark-postgres -t test-deps-postgres:latest
 ```bash 
 docker build -f scala/app/Dockerfile .  -t spark-postgres-test --build-arg "BASE_IMAGE_TAG=jvm11-scala2.12-spark3.4.1-postgres" --build-arg "PROJECTFOLDER=postgres-app"
 docker compose -f docker-compose-test-postgres.yaml up 
+docker compose -f docker-compose-test-postgres.yaml down
 ```
 
 ## S3
@@ -61,6 +63,7 @@ docker build ./docker/spark-s3 -t test-deps-s3:latest
 ```bash 
 docker build -f scala/app/Dockerfile .  -t spark-s3-test --build-arg "BASE_IMAGE_TAG=jvm11-scala2.12-spark3.4.1-s3" --build-arg "PROJECTFOLDER=s3-app"
 docker compose -f docker-compose-test-s3.yaml up 
+docker compose -f docker-compose-test-s3.yaml down
 ```
 
 
@@ -76,6 +79,7 @@ docker build ./docker/spark-redis -t test-deps-redis:latest
 ```bash 
 docker build -f scala/app/Dockerfile .  -t spark-redis-test --build-arg "BASE_IMAGE_TAG=jvm11-scala2.12-spark3.4.1-redis" --build-arg "PROJECTFOLDER=redis-app"
 docker compose -f docker-compose-test-redis.yaml up 
+docker compose -f docker-compose-test-redis.yaml down
 ```
 
 Some other tags will be produced to help with warm cache for dependencies
@@ -83,12 +87,12 @@ Some other tags will be produced to help with warm cache for dependencies
 
 # Docker 
 
-```bash 
+Pulls all images:
 
+```bash 
 docker pull 6zar/base-spark-scala:jvm11-scala2.12-spark3.4.1-redis
 docker pull 6zar/base-spark-scala:jvm11-scala2.12-spark3.4.1-s3
 docker pull 6zar/base-spark-scala:jvm11-scala2.12-spark3.4.1-postgres
 docker pull 6zar/base-spark-scala:jvm11-scala2.12-spark3.4.1-cassandra
 docker pull 6zar/base-spark-scala:jvm11-scala2.12-spark3.4.1
-
 ```
