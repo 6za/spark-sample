@@ -4,7 +4,7 @@ ThisBuild / scalaVersion := "2.12.18"
 
 lazy val root = (project in file("."))
   .settings(
-    name := "s3-app"
+    name := "redis-app"
   )
 
 fork := true
@@ -15,8 +15,7 @@ val sparkVersion = "3.4.1"
 libraryDependencies += "org.apache.spark" %% "spark-core" % sparkVersion % "provided"
 libraryDependencies += "org.apache.spark" %% "spark-sql" % sparkVersion % "provided"
 
-libraryDependencies += "com.amazonaws" % "aws-java-sdk" % "1.11.534"
-libraryDependencies += "org.apache.hadoop" % "hadoop-aws" % "3.2.2"
+libraryDependencies += "com.redislabs" %% "spark-redis" % "3.0.0"
 
 Compile / mainClass  := Some("Main")
 assembly / mainClass := Some("Main")
