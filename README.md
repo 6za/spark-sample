@@ -82,6 +82,22 @@ docker compose -f docker-compose-test-redis.yaml up
 docker compose -f docker-compose-test-redis.yaml down
 ```
 
+
+## mysql
+
+```bash 
+# Warm of cache of jars
+docker build ./docker/spark-mysql -t test-deps-mysql:latest
+```
+
+### Tests
+
+```bash 
+docker build -f scala/app/Dockerfile .  -t spark-mysql-test --build-arg "BASE_IMAGE_TAG=jvm11-scala2.12-spark3.4.1-mysql" --build-arg "PROJECTFOLDER=mysql-app"
+docker compose -f docker-compose-test-mysql.yaml up 
+docker compose -f docker-compose-test-mysql.yaml down
+```
+
 Some other tags will be produced to help with warm cache for dependencies
 
 
@@ -96,3 +112,4 @@ docker pull 6zar/base-spark-scala:jvm11-scala2.12-spark3.4.1-postgres
 docker pull 6zar/base-spark-scala:jvm11-scala2.12-spark3.4.1-cassandra
 docker pull 6zar/base-spark-scala:jvm11-scala2.12-spark3.4.1
 ```
+
