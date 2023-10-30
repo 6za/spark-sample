@@ -16,7 +16,7 @@ val sparkVersion = "3.4.1"
 libraryDependencies += "org.apache.spark" %% "spark-core" % sparkVersion % "provided"
 libraryDependencies += "org.apache.spark" %% "spark-sql" % sparkVersion % "provided"
 
-libraryDependencies += "com.datastax.spark" % "spark-cassandra-connector_2.13" % "3.4.1"
+libraryDependencies += "com.datastax.spark" % "spark-cassandra-connector_2.12" % "3.4.1"
 
 
 Compile / mainClass  := Some("Main")
