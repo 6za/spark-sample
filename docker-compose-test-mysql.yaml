@@ -1,0 +1,60 @@
+version: '3.7'
+services:   
+  db-mysql:
+    image: mysql:8
+    ports:
+        - "33060"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"      
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "password"
+      #MYSQL_ROOT_PASSWORD:  "password"
+      MYSQL_DATABASE: "database"
+    
+    #command: --init-file /data/application/init.sql
+    #command: --default-authentication-plugin=mysql_native_password
+    volumes:
+        - ./persistence/mysql/scripts/init.sql:/docker-entrypoint-initdb.d/1.sql
+        - ./persistence/data:/load-data   
+    healthcheck:
+        test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+        timeout: 20s
+        retries: 10  
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+
+  process-load:
+    image: spark-mysql-test
+    environment:            
+      - CLASSNAME=Main
+    links:
+      - "db-mysql:db-mysql"       
+    volumes:
+      - ./persistence/data:/in
+    depends_on:
+      db-mysql:
+          condition: service_healthy    
+
+## Not working
+  # setup-db:
+  #   image: mysql:8
+  #   environment:
+  #     MYSQL_ALLOW_EMPTY_PASSWORD: "yes"      
+  #     MYSQL_USER: "user"
+  #     MYSQL_PASSWORD: "password"
+  #     #MYSQL_ROOT_PASSWORD:  "password"
+  #     MYSQL_DATABASE: "database"
+  #   # command: tail -f /dev/null
+  #   entrypoint:  mysql --user=root  -h db-mysql --local-infile $MYSQL_DATABASE < /setup/load.sql 
+  #   volumes:
+  #     - ./persistence/mysql/scripts:/setup
+  #     - ./persistence/data:/load-data
+  #   links:
+  #     - "db-mysql:db-mysql"       
+  #   depends_on:
+  #       db-mysql:
+  #         condition: service_healthy      
+  
+    
