@@ -63,5 +63,20 @@ docker build -f scala/app/Dockerfile .  -t spark-s3-test --build-arg "BASE_IMAGE
 docker compose -f docker-compose-test-s3.yaml up 
 ```
 
+
+## REDIS
+
+```bash 
+# Warm of cache of jars
+docker build ./docker/spark-redis -t test-deps-redis:latest
+```
+
+### Tests
+
+```bash 
+docker build -f scala/app/Dockerfile .  -t spark-redis-test --build-arg "BASE_IMAGE_TAG=jvm11-scala2.13-spark3.4.1-redis" --build-arg "PROJECTFOLDER=redis-app"
+docker compose -f docker-compose-test-redis.yaml up 
+```
+
 Some other tags will be produced to help with warm cache for dependencies
 
