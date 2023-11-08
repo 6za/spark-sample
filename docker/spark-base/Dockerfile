@@ -30,9 +30,10 @@ RUN wget --no-verbose -O apache-spark.tgz "https://archive.apache.org/dist/spark
 # && rm apache-spark.tgz
 
 
-
 # Apache spark environment
 FROM builder as apache-spark
+WORKDIR /root
+RUN  wget https://bootstrap.pypa.io/get-pip.py &&  python3 ./get-pip.py
 
 WORKDIR /opt/spark
 
@@ -54,6 +55,7 @@ touch $SPARK_WORKER_LOG && \
 ln -sf /dev/stdout $SPARK_MASTER_LOG && \
 ln -sf /dev/stdout $SPARK_WORKER_LOG
 
+RUN  pip install pyspark
 COPY start-spark.sh /
 #WARM cache of common libraries: 
 #RUN /opt/spark/bin/spark-submit   --class "Main"   --packages "org.apache.spark:spark-sql-kafka-0-10_2.12:$SPARK_VERSION","com.amazonaws:aws-java-sdk:1.11.534","org.apache.hadoop:hadoop-aws:3.2.2","com.squareup.okhttp3:okhttp:4.9.0"   --master local[*]    /opt/spark/examples/jars/spark-examples_2.13-${SPARK_VERSION}.jar || echo done
